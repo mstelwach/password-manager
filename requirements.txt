@@ -1,0 +1,13 @@
+Django
+django-tables2==2.0.1
+django-bootstrap-pagination
+django-bootstrap4
+django-extra-views
+django-autocomplete-light
+django-widget-tweaks
+django-filter
+django-widget-tweaks
+psycopg2
+pycrypto
+six
+sqlparse

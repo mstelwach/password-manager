@@ -1,0 +1,16 @@
+{% extends "dashboard.html" %}
+
+{% block content-wrapper %}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-info-circle"></i> {% block detail-header %}{% endblock detail-header %}
+    </div>
+    <div class="card-body">
+
+        {% block card-nav-upper %}{% endblock card-nav-upper %}
+        <div class="col-sm-12 col-xl-8">
+        {% block detail-content %}{% endblock detail-content %}
+        </div>
+    </div>
+</div>
+{% endblock content-wrapper %}

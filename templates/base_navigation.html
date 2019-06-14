@@ -1,0 +1,90 @@
+{% load static %}
+{% load staticfiles %}
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="{% url 'entry:list' %}"><img src="{% static 'images/logo.png' %}" height="35" alt="logo"></a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Account>
+                <a class="nav-link" href="{% url 'account:detail' %}">
+                    <i class="fa fa-fw fa-user"></i>
+                    <span class="nav-link-text">Account</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=Entries>
+                <a class="nav-link" href="#entries">
+                    <i class="fa fa-fw fa-key"></i>
+                    <span class="nav-link-text">Passwords</span>
+                </a>
+                <ul>
+                    <li>
+                        <a class="nav-link" href="{% url 'entry:list' %}">
+                            <i class="fa fa-fw fa-list"></i>
+                            <span class="nav-link-text">List</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'entry:create' %}">
+                            <i class="fa fa-fw fa-plus"></i>
+                            <span class="nav-link-text">Add</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title=ExportCSV>
+                <a class="nav-link" href="{% url 'entry:export-to-csv' %}">
+                    <i class="fa fa-fw fa-download"></i>
+                    <span class="nav-link-text">Export to CSV</span>
+                </a>
+            </li>
+        </ul>
+
+        {# upper nav #}
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-lg-block">
+                <div class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <div class="input-group">
+                        <span class="welcome_message_with_user_email">{{ user.email }}</span>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#LogoutModal">
+                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="LogoutModal" tabindex="-1" role="dialog" aria-labelledby="LogoutModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LogoutModalLabel">Ready to leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.'</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="{% url 'account:logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+

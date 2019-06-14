@@ -1,0 +1,50 @@
+{% extends "dashboard.html" %}
+
+
+{% block content-wrapper %}
+    {% block additional_nav %}{% endblock additional_nav %}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> {% block table-header %}{% endblock table-header %}
+    </div>
+    <div class="card-body">
+    {% block card-nav-upper %}{% endblock card-nav-upper %}
+    {% block table-render %}{% endblock table-render %}
+    </div>
+</div>
+{% endblock content-wrapper %}
+
+{% block delete_modal %}
+<!-- Delete table record Modal-->
+<div class="modal fade" id="DeleteRecordModal" tabindex="-1" role="dialog" aria-labelledby="DeleteRecordModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DeleteRecordModalLabel">Sure to delete table's record?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Delete" below if you are sure to remove this record.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cacel</button>
+                <button id="SubmitDelete" class="btn btn-primary btn-ok" type="submit" form="">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock delete_modal %}
+
+{% block body_scripts_additional %}
+<script>
+    //this script set valid form attr for modal which is confirmation for record's delete
+    $( document ).ready(function() {
+        $('.DeleteRecord').click(function () {
+            var element = '#' + this.id + '>a>form';
+            var form_id = $(element).attr('id');
+            $('#SubmitDelete').attr('form', form_id);
+        });
+    });
+</script>
+{% endblock body_scripts_additional %}

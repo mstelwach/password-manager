@@ -1,0 +1,61 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="{{LANGUAGE_CODE}}">
+<head>
+    <meta charset="utf-8">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %}Password Manager{% endblock title %}</title>
+
+
+    {% block stylesheets %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          type="text/css">
+    <script src="{% static 'js/vendor/jquery.min.js' %}?v={{ VERSION }}"></script>
+    <link href="{% static 'css/pass-manager.css' %}?v={{ VERSION }}" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/color/48/000000/password.png"/>
+
+    {% endblock stylesheets %}
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view 3the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+
+    {% block head_scripts_additional %}{% endblock head_scripts_additional %}
+
+</head>
+
+
+<body class="fixed-nav sticky-footer login-bg-image-box" lang="{{LANGUAGE_CODE}}" id="page-top">
+
+{% block authenticated %}
+{% endblock authenticated %}
+
+{% block unauthenticated %}{% endblock unauthenticated %}
+
+{% block body_scripts %}
+    <script src="{% static 'js/vendor/bootstrap.bundle.min.js' %}?v={{ VERSION }}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'js/vendor/jquery.easing.min.js' %}?v={{ VERSION }}"></script>
+    <script src="{% static 'js/vendor/pass-manager.js' %}?v={{ VERSION }}"></script>
+    <script src="{% static 'js/modal_confirmation.js' %}?v={{ VERSION }}"></script>
+{% endblock body_scripts %}
+
+{% block body_scripts_additional %}{% endblock body_scripts_additional %}
+
+
+
+</body>
+

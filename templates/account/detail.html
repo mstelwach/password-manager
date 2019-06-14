@@ -1,0 +1,41 @@
+{% extends "dashboard_detail.html" %}
+{% load static %}
+
+{% block detail-header %}Acoount{% endblock detail-header %}
+{% block card-nav-upper %}
+
+<div class="row mb-4">
+    <div class="col-sm-12">
+        <div class="float-right">
+            <a class="btn btn-secondary" href="{% url 'account:password-change' %}">Password Change</a>
+            {% if not user.is_client %}
+            <a class="btn btn-secondary" href="{% url 'account:update' object.pk %}">Edit</a>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock card-nav-upper %}
+{% block detail-content %}
+        <div class="form-group row">
+            <div class="col-sm-3">Username:</div>
+            <div class="col-sm-9">{{ object.username }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">First name:</div>
+            <div class="col-sm-9">{{ object.first_name }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">Last name:</div>
+            <div class="col-sm-9">{{ object.last_name }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">E-mail:</div>
+            <div class="col-sm-9">{{ object.email }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">Date joined:</div>
+            <div class="col-sm-9">{{ object.date_joined }}</div>
+        </div>
+
+{% endblock detail-content %}

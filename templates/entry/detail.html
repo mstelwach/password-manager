@@ -1,0 +1,60 @@
+{% extends "dashboard_detail.html" %}
+{% load static %}
+
+{% block detail-header %}Password Detail {% endblock detail-header %}
+{% block card-nav-upper %}
+
+<div class="row mb-4">
+    <div class="col-sm-12">
+        <div class="float-right">
+            <a class="btn btn-secondary" href="{% url 'entry:send-password' pk=object.pk %}">Send password</a>
+            <a class="btn btn-secondary" href="{% url 'entry:update' pk=object.pk %}">Edit</a>
+
+        </div>
+    </div>
+</div>
+{% endblock card-nav-upper %}
+{% block detail-content %}
+        <div class="form-group row">
+            <div class="col-sm-3">Site name:</div>
+            <div class="col-sm-9">{{ object.site_name }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">Site url:</div>
+            <div class="col-sm-9">{{ object.site_url }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">Site login account:</div>
+            <div class="col-sm-9">{{ object.login }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">Site password:</div>
+            <div class="col-sm-6" id="show-hide-pass">
+                <span id="decrypt-pass"> {{ hide_password }}</span>
+                <span class="col-sm-9">
+                    <button class="fa fa-eye click-pass" type="button"></button>
+                </span>
+
+            </div>
+        </div>
+
+    <script>
+        var decrypt_pass = "{{ decrypt_password }}";
+        var hide_pass = "{{ hide_password }}";
+        $(document).ready(function() {
+            $(".click-pass").on('click', function() {
+                var $button = $('.click-pass');
+                if ($button.attr('class') === 'fa fa-eye click-pass') {
+                    $button.attr('class', 'fa fa-eye-slash click-pass');
+                    $('#decrypt-pass').text(decrypt_pass);
+                }
+                else if ($button.attr('class') === 'fa fa-eye-slash click-pass') {
+                    $button.attr('class', 'fa fa-eye click-pass');
+                    $('#decrypt-pass').text(hide_pass);
+                }
+            });
+        });
+    </script>
+
+{% endblock detail-content %}
+

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+{% block title %}{{ block.super }} - Login {% endblock title %}
+
+{% block unauthenticated %}
+
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Web-Based Password Manager</div>
+        <div class="card-body">
+            <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary btn-block"><span>Login</span></button>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="{% url 'account:create' %}">Register an Account</a>
+                <a class="d-block small" href="{% url 'account:password-reset' %}">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<script>
+    $('label[for="id_username"]').next().attr('placeholder', 'Username');
+    $('label[for="id_password"]').next().attr('placeholder', 'Password');
+    $('label[for="id_username"]').hide();
+    $('label[for="id_password"]').hide();
+</script>
+
+{% endblock unauthenticated %}

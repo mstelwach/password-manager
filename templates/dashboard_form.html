@@ -1,0 +1,29 @@
+{% extends "dashboard.html" %}
+
+{% block content-wrapper %}
+{% if form.errors and not form.non_field_errors %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <i class="fa fa-info-circle"></i>
+                <strong>
+                    {% if form.errors.items|length == 1 %}Please correct the error below. {% else %}Please correct the errors below{% endif %}
+                </strong>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+<div class="card mx-auto">
+    <div class="card-header">{% block form-header %}{% endblock form-header %}</div>
+    <div class="card-body">
+        {% block card-nav-upper %}{% endblock card-nav-upper %}
+        <div class="row">
+            <div class="col-sm-12 col-xl-8">
+            {% block form-content %}{% endblock form-content %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content-wrapper %}

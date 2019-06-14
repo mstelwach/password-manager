@@ -1,0 +1,24 @@
+{% url 'entry:list' as list %}
+
+{% if list in request.get_full_path %}
+
+    <a href="{% url 'entry:detail' record.pk %}" data-toggle="tooltip" data-placement="bottom"
+       title="Detail"><i class="fa fa-fw fa-info"></i></a>
+
+    <a href="{% url 'entry:update' record.pk %}" data-toggle="tooltip" data-placement="bottom"
+       title="Edit"><i class="fa fa-fw fa-pencil-square-o"></i></a>
+
+    <a href="{% url 'entry:send-password' record.pk %}" data-toggle="tooltip" data-placement="bottom" title="Send password"><i class="fa fa-fw fa-paper-plane"></i></a>
+
+    <span id="DeleteRecord-{{ record.pk }}" class="DeleteRecord" data-toggle="tooltip" data-placement="bottom"
+          title="Delete">
+        <a href="" data-toggle="modal" data-target="#DeleteRecordModal"><i class="fa fa-fw fa-trash"></i>
+            <form action="{% url 'entry:delete' record.pk %}" method="post"
+                  id="DeleteConfirmationForm-{{ record.pk }}">
+                {% csrf_token %}
+            </form>
+        </a>
+    </span>
+
+{% endif %}
+

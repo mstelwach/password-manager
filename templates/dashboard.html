@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block authenticated %}
+
+{% include 'base_navigation.html' %}
+
+{% block content %}
+<div class="content-wrapper" id="wrapper">
+    <div class="container-fluid">
+        {% include 'base_messages.html' %}
+        {% block content-wrapper %}{% endblock content-wrapper %}
+    </div>
+    {% block content-below %}{% endblock content-below %}
+</div>
+{% endblock content %}
+
+{% include 'base_footer.html' %}
+
+{% block delete_modal %}{% endblock delete_modal %}
+
+{% block import_modal %}{% endblock import_modal %}
+
+{% endblock authenticated %}

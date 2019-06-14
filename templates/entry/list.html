@@ -1,0 +1,62 @@
+{% extends "dashboard_table.html" %}
+{% load render_table from django_tables2 %}
+
+{% block title %}{{ block.super }} - List password site{% endblock title %}
+
+{% block table-header %}List password site{% endblock table-header %}
+
+{% block card-nav-upper %}
+<div class="multiLangList products">
+<div class="row mb-4" id="multiLang">
+    <div class="col-sm-12">
+       <div class="float-right">
+            <a class="nav-link btn btn-secondary" href="{% url 'entry:create' %}">Add password</a>
+        </div>
+    </div>
+</div>
+{% endblock card-nav-upper %}
+
+{% block table-render %}
+    <form>
+        <div class="form-group row">
+            <div class="col-sm-3">{{ filtered_data.form.site_name }}</div>
+            <div class="col-sm-3">{{ filtered_data.form.login }}</div>
+            <!-- <div class="col-sm-3">{{ filtered_data.form.start_date }}</div> -->
+            <div class="col-sm-4 d-flex licence_sale_date">{{ filtered_data.form.date }}</div>
+            <div class="col-xs-1">
+                <button class="btn btn-secondary " type="submit">Filter</button>
+            </div>
+            <div class="col-xs-1" style="margin-left: 9px;">
+                <a class="btn btn-secondary" href="{{ full_url }}">Reset</a>
+            </div>
+        </div>
+    </form>
+
+    {% render_table entry_table 'tables2_bootstrap4.html' %}
+
+{% endblock table-render %}
+{% block body_scripts_additional %}
+    {{ filtered_data.form.media }}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.licence_sale_date input').attr('autocomplete', 'off');
+            $('#id_date_0').addClass('date_picker');
+            $('#id_date_0').addClass('select2-custom-style');
+            $('#id_date_0').css('margin-right', '10px');
+
+            $('#id_date_1').addClass('date_picker');
+            $('#id_date_1').addClass('select2-custom-style');
+            $('#id_date_1').css('margin-left', '10px');
+            $('#id_date_0').get(0).nextSibling.remove();
+
+        });
+        $( function() {
+          $( ".date_picker" ).datepicker(
+            { dateFormat: 'dd.mm.yy' },
+          );
+        } );
+    </script>
+{% endblock body_scripts_additional %}
+</div>
