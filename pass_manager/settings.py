@@ -130,13 +130,13 @@ USE_L10N = True
 USE_TZ = True
 
 # settings for smtp server
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'm.stelwach@gmail.com '
-EMAIL_HOST_PASSWORD = "I9P\I24'iJ){St~c"
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'Password Manager <m.stelwach@gmail.com>'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ""
+# EMAIL_PORT = 587
+# DEFAULT_FROM_EMAIL = 'Password Manager <m.stelwach@gmail.com>'
 
 
 # Static files (CSS, JavaScript, Images)
