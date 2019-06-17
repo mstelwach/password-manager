@@ -31,6 +31,8 @@ Simple web-based password manager. Share passwords with your friends
 
 ### Installation
 The installation is done by running the script. Before running the script, you must have PostgreSQL database installed.
+After running the script, configure SMTP Server - settings.py. 
+
 
 ##### Script
 
@@ -39,5 +41,6 @@ The installation is done by running the script. Before running the script, you m
 ```sh
 $ sh install.sh
 ```
+  
 #### That's all!
 
