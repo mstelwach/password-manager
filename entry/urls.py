@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^(?P<pk>[\d]+)/send-password/$', SendPasswordView.as_view(), name='send-password'),
     url(r'^link/activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         PasswordActiveLink.as_view(), name='activate'),
-    url(r'^export-to-csv/$', export_to_csv, name='export-to-csv')
+    url(r'^export-to-csv/$', ExportToCsvView.as_view(), name='export-to-csv')
 ]
 
 autocomplete_url_patterns = [

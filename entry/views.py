@@ -5,7 +5,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -13,7 +12,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, FormView
+from django.views import View
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView, FormView, RedirectView
 from django_tables2 import RequestConfig
 
 from entry.admin import EntryAdmin
@@ -29,10 +29,6 @@ class EntryListView(LoginRequiredMixin, ListView):
     template_name = "entry/list.html"
     table_class = EntryTable
     paginate_by = 10
-
-    def get(self, request, *args, **kwargs):
-        kwargs['user'] = self.request.user
-        return super(EntryListView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Entry.objects.filter(account=self.request.user)
@@ -68,7 +64,10 @@ class EntryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.account = self.request.user
         crypto = PasswordCrypto(self.secret_key)
-        form.instance.password = crypto.encrypt(form.cleaned_data['password'])
+        if not form.cleaned_data['password']:
+            form.instance.password = crypto.encrypt(self.model.make_random_password())
+        else:
+            form.instance.password = crypto.encrypt(form.cleaned_data['password'])
         return super(EntryCreateView, self).form_valid(form)
 
 
@@ -97,8 +96,12 @@ class EntryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     secret_key = force_bytes(settings.SECRET_KEY)
 
     def form_valid(self, form):
+        entry = self.get_object()
         crypto = PasswordCrypto(self.secret_key)
-        form.instance.password = crypto.encrypt(form.cleaned_data['password'])
+        if not form.cleaned_data['password']:
+            form.instance.password = entry.password
+        else:
+            form.instance.password = crypto.encrypt(form.cleaned_data['password'])
         return super(EntryUpdateView, self).form_valid(form)
 
 
@@ -181,22 +184,20 @@ class PasswordActiveLink(DetailView):
         return context
 
 
-def download_csv(modeladmin, request, queryset):
-    opts = queryset.model._meta
-    response = HttpResponse(content_type='text/csv')
-    username = queryset.first().account.username
-    response['Content-Disposition'] = 'attachment; filename="{}-entries.csv"'.format(username)
-    writer = csv.writer(response)
-    field_names = [field.name for field in opts.fields]
-    writer.writerow(field_names)
-    for obj in queryset:
-        writer.writerow([getattr(obj, field) for field in field_names])
-    return response
+class ExportToCsvView(LoginRequiredMixin, View):
 
+    def download_csv(self, modeladmin, request, queryset):
+        opts = queryset.model._meta
+        response = HttpResponse(content_type='text/csv')
+        writer = csv.writer(response)
+        field_names = [field.name for field in opts.fields]
+        writer.writerow(field_names)
+        for obj in queryset:
+            writer.writerow([getattr(obj, field) for field in field_names])
+        return response
 
-download_csv.short_description = "Download selected as csv"
-
-
-def export_to_csv(request):
-    data = download_csv(EntryAdmin, request, Entry.objects.filter(account=request.user))
-    return HttpResponse(data, content_type='text/csv')
+    def get(self, request):
+        data = self.download_csv(EntryAdmin, request, Entry.objects.filter(account=self.request.user))
+        response = HttpResponse(data, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="{}-entries.csv"'.format(self.request.user.username)
+        return response

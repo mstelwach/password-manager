@@ -10,7 +10,7 @@ class EntryCreateForm(forms.ModelForm):
         model = Entry
         exclude = ['account', 'date']
         widgets = {
-            'password': forms.PasswordInput()
+            'password': forms.PasswordInput(attrs={'placeholder': 'Leave blank to generate one'})
         }
 
 

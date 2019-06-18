@@ -1,6 +1,5 @@
 {% extends "dashboard.html" %}
 
-
 {% block content-wrapper %}
     {% block additional_nav %}{% endblock additional_nav %}
 <div class="card mb-3">
@@ -15,7 +14,7 @@
 {% endblock content-wrapper %}
 
 {% block delete_modal %}
-<!-- Delete table record Modal-->
+{#<!-- Delete table record Modal-->#}
 <div class="modal fade" id="DeleteRecordModal" tabindex="-1" role="dialog" aria-labelledby="DeleteRecordModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -28,7 +27,7 @@
             </div>
             <div class="modal-body">Select "Delete" below if you are sure to remove this record.</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cacel</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <button id="SubmitDelete" class="btn btn-primary btn-ok" type="submit" form="">Delete</button>
             </div>
         </div>

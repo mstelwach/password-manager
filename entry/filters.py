@@ -23,7 +23,7 @@ class EntryListFilter(django_filters.FilterSet):
         choices=Entry.objects.all().values_list('site_name', 'site_name'),
         widget=autocomplete.ListSelect2(
             url='entry:site-name-autocomplete',
-            attrs={'data-placeholder': 'Site name', 'class': 'invisible'}
+            attrs={'data-placeholder': 'Site name'}
         )
     )
 
@@ -31,9 +31,10 @@ class EntryListFilter(django_filters.FilterSet):
         choices=Entry.objects.all().values_list('login', 'login'),
         widget=autocomplete.ListSelect2(
             url='entry:login-autocomplete',
-            attrs={'data-placeholder': 'Login', 'class': 'invisible'}
+            attrs={'data-placeholder': 'Login'}
         )
     )
+
     date = django_filters.DateFromToRangeFilter(
         field_name='created__date',
         widget=MyRangeWidget(from_attrs={'placeholder': 'Start date'}, to_attrs={'placeholder': 'End date'}))

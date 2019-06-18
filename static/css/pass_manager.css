@@ -6027,7 +6027,6 @@ html {
   position: relative; }
 
 .login-bg-image-box {
-  background-image: url(../../../static/images/bg.jpg);
   background-size: cover;
   background-position: right bottom;
   width: 100%;

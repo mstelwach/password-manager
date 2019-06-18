@@ -21,6 +21,6 @@ from account.views import Login
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include('account.urls', namespace='account')),
-    url(r'^account/entry', include('entry.urls', namespace='entry')),
+    url(r'^account/entry/', include('entry.urls', namespace='entry')),
     url(r'', Login.as_view(), name='login'),
 ]
